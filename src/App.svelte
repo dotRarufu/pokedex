@@ -6,8 +6,19 @@
   import type { SearchFilter } from "./lib/types";
 
   let filters: SearchFilter = { nameOrId: null, type: null };
+  $: {
+    const isNumber = !isNaN(filters.nameOrId as unknown as number);
+    if (isNumber) {
+      const id = Number(filters.nameOrId);
 
-  $: filters.nameOrId = filters.nameOrId === "" ? null : filters.nameOrId;
+      if (id !== 0) {
+        filters.nameOrId = id;
+      }
+    }
+
+    filters.nameOrId;
+  }
+  $: console.log("filters", filters);
 </script>
 
 <div class="lg:h-screen lg:w-screen lg:overflow-clip">
