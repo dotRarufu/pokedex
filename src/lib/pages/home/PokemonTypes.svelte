@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { pokemonTypes } from "../../pokemonTypes";
+  import type { PokemonTypes } from "../../types";
   import PokemonType from "./PokemonType.svelte";
-  import { pokemonTypes } from "./pokemonTypes";
-  import { type PokemonTypes } from "./types";
 
   export let filter: PokemonTypes[] | null;
 

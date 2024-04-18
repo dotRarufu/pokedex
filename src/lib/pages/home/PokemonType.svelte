@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { pokemonTypeColors } from "./pokemonTypes";
-  import type { PokemonTypes } from "./types";
+  import { pokemonTypeColors } from "../../pokemonTypes";
+  import type { PokemonTypes } from "../../types";
 
   export let type: PokemonTypes;
 

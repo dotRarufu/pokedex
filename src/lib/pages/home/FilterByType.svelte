@@ -3,9 +3,8 @@
   import PokemonCard from "./PokemonCard.svelte";
   import { createEventDispatcher } from "svelte";
   import InfiniteScroll from "svelte-infinite-scroll";
-
-  import { isArraySubset } from "./utils";
-  import type { PokemonTypes } from "./types";
+  import type { PokemonTypes } from "../../types";
+  import { isArraySubset } from "../../utils";
 
   const amount = 3;
   const threshold = 80;

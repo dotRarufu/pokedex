@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Pokemon } from "pokenode-ts";
   import PokemonCard from "./PokemonCard.svelte";
-  import pokenode from "./pokenode";
+  import pokenode from "../../pokenode";
 
   export let cachedData: Pokemon[] = [];
   export let idFilter: number;

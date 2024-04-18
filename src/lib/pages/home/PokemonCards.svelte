@@ -3,12 +3,13 @@
   import CardsBackground from "./CardsBackground.svelte";
   import PokemonCard from "./PokemonCard.svelte";
   import { onMount } from "svelte";
-  import { getPokemons } from "./helpers";
-  import type { SearchFilter } from "./types";
+
   import type { Pokemon } from "pokenode-ts";
   import FilterByName from "./FilterByName.svelte";
   import FilterByType from "./FilterByType.svelte";
   import FilterById from "./FilterById.svelte";
+  import type { SearchFilter } from "../../types";
+  import { getPokemons } from "../../helpers";
 
   // Amount per batch
   const amount = 3;
