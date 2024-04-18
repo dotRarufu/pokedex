@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply leading-[1.2] text-[1rem];
+    @apply leading-[1.2] text-[1rem] bg-background-100;
   }
 }
 

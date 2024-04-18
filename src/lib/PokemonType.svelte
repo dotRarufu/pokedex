@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { pokemonTypeColors, type PokemonTypes } from "./pokemonTypes";
+  import { pokemonTypeColors } from "./pokemonTypes";
+  import type { PokemonTypes } from "./types";
 
   export let type: PokemonTypes;
 
@@ -11,9 +12,9 @@
   style="background-color: {color};"
 >
   <div class="relative">
-    <span class="text-background-950 relative z-[2] capitalize"> {type} </span>
+    <span class="text-background-100 relative z-[2] capitalize"> {type} </span>
     <span
-      class="z-[1] opacity-30 absolute left-[1px] text-text-50 top-[1px] capitalize"
+      class="z-[1] opacity-30 absolute left-[1px] text-text-500 top-[1px] capitalize"
     >
       {type}
     </span>

@@ -5,9 +5,10 @@
   import { onMount } from "svelte";
   import { getPokemons } from "./helpers";
   import type { SearchFilter } from "./types";
-  import pokenode from "./pokenode";
   import type { Pokemon } from "pokenode-ts";
-  import { isArraySubset } from "./utils";
+  import FilterByName from "./FilterByName.svelte";
+  import FilterByType from "./FilterByType.svelte";
+  import FilterById from "./FilterById.svelte";
 
   // Amount per batch
   const amount = 3;
@@ -19,83 +20,11 @@
   let page = 0;
   let data: Pokemon[] = [];
   let hasMore = true;
-  let filteredData: Pokemon[] = [];
-  let rerun = true;
 
   $: hasFilter = filter.nameOrId !== null || filter.type !== null;
-
-  $: filterByName = rerun && hasFilter && typeof filter.nameOrId === "string";
+  $: filterByName = hasFilter && typeof filter.nameOrId === "string";
   $: filterById = hasFilter && typeof filter.nameOrId === "number";
-  $: filterByType =
-    hasFilter && filter.type !== null && filter.type.length > 0 && rerun;
-
-  $: if (filterByName) findPokemonsByName();
-
-  $: if (filterById) {
-    const idFilter = filter.nameOrId as number;
-    pokenode.getPokemonById(idFilter).then((p) => (filteredData = [p]));
-  }
-
-  $: if (filterByType) findPokemonsByType();
-
-  const findPokemonsByName = async () => {
-    // improve type
-    const keywordFilter = filter.nameOrId as string;
-
-    let newDataCount = 0;
-
-    do {
-      const filteredDataIds = filteredData.map((f) => f.id);
-
-      const dataMinusFiltered = data.filter(
-        (d) => !filteredDataIds.includes(d.id),
-      );
-
-      const match = dataMinusFiltered.filter((d) =>
-        d.name.includes(keywordFilter),
-      );
-      newDataCount += match.length;
-
-      if (match.length > 0) filteredData = [...filteredData, ...match];
-
-      await getMoreData();
-    } while (newDataCount < amount);
-
-    rerun = false;
-  };
-
-  const findPokemonsByType = async () => {
-    const typeFilters = filter.type!;
-    let newDataCount = 0;
-
-    do {
-      const filteredDataIds = filteredData.map((f) => f.id);
-
-      const dataMinusFiltered = data.filter(
-        (d) => !filteredDataIds.includes(d.id),
-      );
-
-      const match = dataMinusFiltered.filter((pokemon) => {
-        const types = pokemon.types.map((p) => p.type.name);
-
-        return isArraySubset(types, typeFilters);
-      });
-      newDataCount += match.length;
-      if (match.length > 0) filteredData = [...filteredData, ...match];
-
-      await getMoreData();
-    } while (newDataCount < amount);
-
-    rerun = false;
-  };
-
-  const loadMore = async () => {
-    if (rerun) return;
-
-    rerun = true;
-
-    await getMoreData();
-  };
+  $: filterByType = hasFilter && filter.type !== null && filter.type.length > 0;
 
   const getMoreData = async () => {
     // todo: add indicator while loading for more data
@@ -103,35 +32,58 @@
     const { pokemons, next } = await getPokemons(page, amount);
 
     data = [...data, ...pokemons];
-
     hasMore = next !== null;
     page += 1;
   };
 
-  onMount(async () => {
-    const { next, pokemons } = await getPokemons(page, amount);
+  onMount(getMoreData);
+  $: duplicates = data.filter((item, index) =>
+    data.some((elem, idx) => elem.id === item.id && idx !== index),
+  );
 
-    data = [...data, ...pokemons];
-    hasMore = next !== null;
-    page += 1;
-  });
+  $: console.log("duplicates:", duplicates);
+
+  let uniqueData: Pokemon[] = [];
+  $: {
+    // Unsure why raw data causes key duplicate
+    const unique = new Set<Pokemon>();
+    data.forEach((d) => unique.add(d));
+
+    uniqueData = [...unique];
+  }
+
+  // todo: fix type
+  $: name = filter.nameOrId as string;
+  $: types = filter.type || [];
+  $: id = filter.nameOrId as number;
+
+  $: console.log("filters:", filter);
 </script>
 
 <ul
   class="sm:px-[2rem] px-[1rem] md:max-w-[31.75rem] gap-[1rem] justify-center sm:justify-start flex relative lg:pr-[5rem] flex-wrap"
 >
   <CardsBackground />
-  {#if hasFilter}
-    {#each filteredData as datum (datum.id)}
-      <PokemonCard data={datum} />
-    {/each}
+  {#if filterByName}
+    <FilterByName
+      cachedData={data}
+      nameFilter={name}
+      on:requireMoreData={getMoreData}
+    />
+  {:else if filterByType}
+    <FilterByType
+      cachedData={data}
+      typesFilter={types}
+      on:requireMoreData={getMoreData}
+    />
+  {:else if filterById}
+    <FilterById idFilter={id} cachedData={data} />
   {:else}
-    {#each data as datum (datum.id)}
-      <!-- todo: add skeleton loader -->
+    {#each uniqueData as datum (datum.id)}
       <PokemonCard data={datum} />
     {/each}
   {/if}
 
   <!-- elementScroll must overflow -->
-  <InfiniteScroll window {threshold} {hasMore} on:loadMore={loadMore} />
+  <InfiniteScroll window {threshold} {hasMore} on:loadMore={getMoreData} />
 </ul>

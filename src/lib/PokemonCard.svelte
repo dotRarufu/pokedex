@@ -20,7 +20,7 @@
     />
   </div>
   <div>
-    <p class="text-text-50/30">#{addPadding(id.toString(), 3, "0")}</p>
-    <p class="capitalize text-h6 text-text-50/50">{name}</p>
+    <p class="text-primary-300">#{addPadding(id.toString(), 3, "0")}</p>
+    <p class="capitalize text-h6 text-primary-400">{name}</p>
   </div>
 </li>
