@@ -12,14 +12,14 @@ export const addPadding = (text: string, digits: number, placeholder: string) =>
 
 export const getPokemons = async (page: number, amount: number) => {
   const offset = page * amount;
-  const limit = offset + amount;
-
+  const limit = amount;
+  // console.log("getPokemons:", { offset, limit });
   const { results, next } = await pokenode.listPokemons(offset, limit);
 
-  const pokemonCards: IPokemonCard[] = results.map((r, id) => ({
-    id: id + 1,
-    name: r.name,
-  }));
+  const pokemons = results.map((r) => r.name);
 
-  return { pokemonCards, next };
+  return { pokemons, next };
 };
+
+export const addPokemonId = (startId: number, names: string[]) =>
+  names.map((name, index) => ({ id: index + startId, name }));
