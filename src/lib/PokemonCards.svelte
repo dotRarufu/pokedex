@@ -3,55 +3,115 @@
   import CardsBackground from "./CardsBackground.svelte";
   import PokemonCard from "./PokemonCard.svelte";
   import { onMount } from "svelte";
-  import { addPokemonId, getPokemons } from "./helpers";
-  import type { IPokemonCard } from "./types";
+  import { getPokemons } from "./helpers";
   import type { SearchFilter } from "./types";
   import pokenode from "./pokenode";
+  import type { Pokemon } from "pokenode-ts";
+  import { isArraySubset } from "./utils";
 
   // Amount per batch
-  const amount = 5;
+  const amount = 3;
   // Amount to scroll before running loadMore
   const threshold = 20;
 
   export let filter: SearchFilter;
 
   let page = 0;
-  let data: IPokemonCard[] = [];
+  let data: Pokemon[] = [];
   let hasMore = true;
-  let filteredData: IPokemonCard[] = [];
+  let filteredData: Pokemon[] = [];
+  let rerun = true;
 
   $: hasFilter = filter.nameOrId !== null || filter.type !== null;
 
-  $: if (hasFilter && typeof filter.nameOrId === "string") {
-    const keywordFilter = filter.nameOrId;
-    filteredData = data.filter((d) => d.name.includes(keywordFilter));
+  $: filterByName = rerun && hasFilter && typeof filter.nameOrId === "string";
+  $: filterById = hasFilter && typeof filter.nameOrId === "number";
+  $: filterByType =
+    hasFilter && filter.type !== null && filter.type.length > 0 && rerun;
 
-    if (filteredData.length < 5 && data.length > 0) loadMore();
+  $: if (filterByName) findPokemonsByName();
+
+  $: if (filterById) {
+    const idFilter = filter.nameOrId as number;
+    pokenode.getPokemonById(idFilter).then((p) => (filteredData = [p]));
   }
 
-  $: if (hasFilter && typeof filter.nameOrId === "number") {
-    const idFilter = filter.nameOrId;
-    pokenode
-      .getPokemonById(idFilter)
-      .then((p) => (filteredData = [{ id: idFilter, name: p.name }]));
-  }
+  $: if (filterByType) findPokemonsByType();
+
+  const findPokemonsByName = async () => {
+    // improve type
+    const keywordFilter = filter.nameOrId as string;
+
+    let newDataCount = 0;
+
+    do {
+      const filteredDataIds = filteredData.map((f) => f.id);
+
+      const dataMinusFiltered = data.filter(
+        (d) => !filteredDataIds.includes(d.id),
+      );
+
+      const match = dataMinusFiltered.filter((d) =>
+        d.name.includes(keywordFilter),
+      );
+      newDataCount += match.length;
+
+      if (match.length > 0) filteredData = [...filteredData, ...match];
+
+      await getMoreData();
+    } while (newDataCount < amount);
+
+    rerun = false;
+  };
+
+  const findPokemonsByType = async () => {
+    const typeFilters = filter.type!;
+    let newDataCount = 0;
+
+    do {
+      const filteredDataIds = filteredData.map((f) => f.id);
+
+      const dataMinusFiltered = data.filter(
+        (d) => !filteredDataIds.includes(d.id),
+      );
+
+      const match = dataMinusFiltered.filter((pokemon) => {
+        const types = pokemon.types.map((p) => p.type.name);
+
+        return isArraySubset(types, typeFilters);
+      });
+      newDataCount += match.length;
+      if (match.length > 0) filteredData = [...filteredData, ...match];
+
+      await getMoreData();
+    } while (newDataCount < amount);
+
+    rerun = false;
+  };
 
   const loadMore = async () => {
-    const { pokemons, next } = await getPokemons(page, amount);
-    const startId = data.length + 1;
-    const newBatch = addPokemonId(startId, pokemons);
+    if (rerun) return;
 
-    data = [...data, ...newBatch];
+    rerun = true;
+
+    await getMoreData();
+  };
+
+  const getMoreData = async () => {
+    // todo: add indicator while loading for more data
+
+    const { pokemons, next } = await getPokemons(page, amount);
+
+    data = [...data, ...pokemons];
+
     hasMore = next !== null;
     page += 1;
   };
 
   onMount(async () => {
     const { next, pokemons } = await getPokemons(page, amount);
-    const startId = data.length || 1;
-    const newBatch = addPokemonId(startId, pokemons);
 
-    data = [...data, ...newBatch];
+    data = [...data, ...pokemons];
     hasMore = next !== null;
     page += 1;
   });

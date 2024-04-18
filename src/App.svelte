@@ -12,7 +12,7 @@
       <PokemonSearch />
     </div>
 
-    <PokemonCards filter={{ nameOrId: 393, type: null }} />
-    <!-- <PokemonCards filter={{ nameOrId: null, type: null }} /> -->
+    <!-- <PokemonCards filter={{ nameOrId: "ar", type: null }} /> -->
+    <PokemonCards filter={{ nameOrId: null, type: ["fire", "grass"] }} />
   </main>
 </div>

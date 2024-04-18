@@ -1,5 +1,4 @@
 import pokenode from "./pokenode";
-import type { IPokemonCard } from "./types";
 
 export const getPokemonImage = (id: number) => {
   const paddedId = addPadding(id.toString(), 3, "0");
@@ -16,10 +15,12 @@ export const getPokemons = async (page: number, amount: number) => {
   // console.log("getPokemons:", { offset, limit });
   const { results, next } = await pokenode.listPokemons(offset, limit);
 
-  const pokemons = results.map((r) => r.name);
+  // Get pokemon profile
+  // Types not present in listPokemons
+  const requests = results.map((n) => pokenode.getPokemonByName(n.name));
+
+  // todo: what if a request from array errors?
+  const pokemons = await Promise.all(requests);
 
   return { pokemons, next };
 };
-
-export const addPokemonId = (startId: number, names: string[]) =>
-  names.map((name, index) => ({ id: index + startId, name }));
