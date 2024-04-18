@@ -27,7 +27,7 @@
   <main class="lg:flex pb-[2rem] justify-between">
     <div>
       <PokemonSearch bind:filter={filters.nameOrId} />
-      <PokemonTypes />
+      <PokemonTypes bind:filter={filters.type} />
     </div>
 
     <PokemonCards filter={filters} />

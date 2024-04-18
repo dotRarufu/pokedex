@@ -37,11 +37,6 @@
   };
 
   onMount(getMoreData);
-  $: duplicates = data.filter((item, index) =>
-    data.some((elem, idx) => elem.id === item.id && idx !== index),
-  );
-
-  $: console.log("duplicates:", duplicates);
 
   let uniqueData: Pokemon[] = [];
   $: {
