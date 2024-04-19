@@ -4,6 +4,7 @@
   export let alt: string;
   export let classNames: string;
   export let hideLoading = false;
+  export let hideOnFail = false;
 
   let loaded = false;
   let failed = false;
@@ -27,8 +28,8 @@
 
 {#if loaded}
   <img {src} class={classNames} {alt} />
-{:else if failed}
+{:else if failed && !hideOnFail}
   <img src="/logo-overlay.png" alt="Not Found" />
 {:else if loading && !hideLoading}
-  <img src="/loading.gif" alt="Loading..." />
+  <img src="/loading-1.gif" alt="Loading..." />
 {/if}

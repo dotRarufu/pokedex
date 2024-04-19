@@ -69,12 +69,14 @@
       <div
         class="relative lg:h-full lg:w-[calc(50%-1rem)] lg:inline-block lg:left-1/2"
       >
-        <div class="lg:hidden left-0 px-[2rem] max-w-[28.25rem] mx-auto">
+        <div
+          class="bdev1 lg:hidden left-0 px-[2rem] max-w-[28.25rem] flex justify-center mx-auto"
+        >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>
 
         <div
-          class="absolute hidden top-1/2 -translate-y-1/2 lg:block left-0 w-screen max-w-[120%]"
+          class="justify-center absolute hidden top-1/2 -translate-y-1/2 lg:flex left-0 w-screen max-w-[120%]"
         >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>

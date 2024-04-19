@@ -12,7 +12,7 @@
     <span class="text-background-100 relative z-[2] capitalize">
       {move}
       <span
-        class="-z-[1] opacity-30 absolute left-[1px] text-text-500 top-[1px] capitalize"
+        class="-z-[1] text-nowrap opacity-30 absolute left-[1px] text-text-500 top-[1px] capitalize"
       >
         {move}
       </span>
