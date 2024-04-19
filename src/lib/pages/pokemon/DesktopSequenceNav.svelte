@@ -1,8 +1,9 @@
 <script lang="ts">
   export let id: number;
 
-  let nextId = id + 1;
-  let previousId = id === 0 ? 1 : id - 1;
+  $: nextId = id + 1;
+  $: previousId = id - 1;
+  $: if (previousId === 0) previousId = 1;
 </script>
 
 <nav

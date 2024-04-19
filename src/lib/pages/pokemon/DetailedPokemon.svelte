@@ -58,7 +58,7 @@
 
   {#if $data}
     <main
-      class="hover:show-scrollbar hide-scrollbar h-full overflow-y-scroll lg:overflow-visible sm:rounded-[16px] px-[1rem] py-[2rem] sm:mx-auto sm:my-[2rem] lg:mb-0 sm:h-fit sm:max-w-[43.125rem] sm:bg-background-100 sm:p-[3.25rem] lg:w-full lg:max-w-[78.125rem] lg:h-full relative lg:max-h-[42.0625rem]
+      class="hover:show-scrollbar hide-scrollbar h-full overflow-y-scroll lg:overflow-visible sm:rounded-[16px] px-[1rem] py-[2rem] sm:mx-auto sm:my-[2rem] lg:mb-0 sm:h-fit sm:max-w-[43.125rem] sm:bg-background-100 sm:p-[3.25rem] lg:w-full lg:max-w-[78.125rem] lg:h-full relative lg:max-h-[42.0625rem] sm:shadow-xl
       "
     >
       <MobileBackground />

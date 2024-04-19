@@ -1,7 +1,16 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import BottomNavItem from "./BottomNavItem.svelte";
+  import { location } from "svelte-spa-router";
 
   export let id: string;
+  const paths = ["overview", "stats", "abilities"];
+
+  $: isActive = paths.filter((p) => $location.includes(p))[0];
+
+  onMount(() => {
+    console.log("mounts");
+  });
 </script>
 
 <nav
@@ -10,8 +19,20 @@
   <ul
     class="divide-x divide-primary-300 flex border border-primary-300 rounded-[16px] lg:rounded-[12px] overflow-clip"
   >
-    <BottomNavItem label="Overview" path="/pokemon/{id}/overview" />
-    <BottomNavItem label="Stats" path="/pokemon/{id}/stats" />
-    <BottomNavItem label="Abilities" path="/pokemon/{id}/abilities" />
+    <BottomNavItem
+      isActive={isActive === "overview"}
+      label="Overview"
+      path="/pokemon/{id}/overview"
+    />
+    <BottomNavItem
+      isActive={isActive === "stats"}
+      label="Stats"
+      path="/pokemon/{id}/stats"
+    />
+    <BottomNavItem
+      isActive={isActive === "abilities"}
+      label="Abilities"
+      path="/pokemon/{id}/abilities"
+    />
   </ul>
 </nav>
