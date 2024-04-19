@@ -19,22 +19,23 @@
   };
 </script>
 
-<li
-  class="rounded-[12px] w-fit px-[1rem] sm:text-h6"
-  style="opacity: {!handleClick || isSelected ? '1' : '0.3'};
-  background-color: {color};
+<li class="">
+  <button
+    on:click={buttonClick}
+    style="
+    cursor: {!handleClick ? 'default' : 'pointer'};
+  background-color: {!handleClick || isSelected ? color : 'hsl(225, 3%, 70%)'};
   padding-top: {!isSmall ? '0.5rem' : '0.25rem'};
   padding-bottom: {!isSmall ? '0.5rem' : '0.25rem'};"
->
-  <button
-    class="relative {!handleClick ? 'cursor-default' : 'cursor-pointer'}"
-    on:click={buttonClick}
+    class="transition-colors rounded-[12px] w-fit px-[1rem] sm:text-h6 relative shadow-md"
   >
-    <span class="text-background-100 relative z-[2] capitalize"> {type} </span>
-    <span
-      class="z-[1] opacity-30 absolute left-[1px] text-text-500 top-[1px] capitalize"
-    >
+    <span class="text-background-100 relative z-[1] capitalize">
       {type}
+      <span
+        class="-z-[1] opacity-30 absolute left-[1px] text-text-500 top-[1px] capitalize"
+      >
+        {type}
+      </span>
     </span>
   </button>
 </li>

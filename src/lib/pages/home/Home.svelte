@@ -38,7 +38,7 @@
 <div class="lg:h-screen lg:w-screen lg:overflow-clip">
   <Header />
 
-  <main class="lg:flex pb-[2rem] justify-between">
+  <main class="h-[calc(100%-5.625rem)] lg:flex pb-[2rem] justify-between">
     <div class="">
       <PokemonSearch
         {updateNameFilter}

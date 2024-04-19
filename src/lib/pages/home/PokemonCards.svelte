@@ -9,6 +9,7 @@
   import FilterById from "./FilterById.svelte";
   import type { SearchFilter } from "../../types";
   import { getPokemons } from "../../helpers";
+  import LoadingIndicator from "../../LoadingIndicator.svelte";
 
   // Amount per batch
   let amount = 10;
@@ -20,8 +21,6 @@
   let page = 0;
   let data: Pokemon[] = [];
   let hasMore = true;
-
-  $: hasFilter = filter.id || filter.name || filter.type;
 
   let selectedFilter: "name" | "id" | "type" | null = null;
 
@@ -77,14 +76,10 @@
 
 <ul
   bind:this={container}
-  class="bdev1 sm:px-[2rem] px-[1rem] lg:max-w-[42.35rem] gap-[1rem] justify-center sm:justify-start flex lg:justify-center relative lg:pr-[5rem] lg:max-h-screen flex-wrap lg:overflow-y-scroll lg:overflow-x-clip"
+  class="sm:px-[2rem] px-[1rem] lg:max-w-[42.35rem] gap-[1rem] justify-center sm:justify-start flex lg:justify-center relative lg:pr-[5rem] lg:max-h-screen flex-wrap lg:overflow-y-scroll lg:overflow-x-clip h-full"
 >
   {#if isFetching}
-    <div
-      class="fixed block bottom-[1rem] right-[1rem] z-[99999] rounded-[12px] px-[1rem] py-[0.5rem] animate-bounce text-background-200 bg-[#6890f0]"
-    >
-      Loading Data
-    </div>
+    <LoadingIndicator />
   {/if}
 
   {#if selectedFilter === "name"}
