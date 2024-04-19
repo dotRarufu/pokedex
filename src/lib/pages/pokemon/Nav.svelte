@@ -7,10 +7,6 @@
   const paths = ["overview", "stats", "abilities"];
 
   $: isActive = paths.filter((p) => $location.includes(p))[0];
-
-  onMount(() => {
-    console.log("mounts");
-  });
 </script>
 
 <nav

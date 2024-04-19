@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Image from "../../Image.svelte";
   import { addPadding, getPokemonImage } from "../../helpers";
   import type { IPokemonCard } from "../../types";
 
@@ -8,15 +9,20 @@
 
 <!-- todo: colorized background (based on type) on hover -->
 <li
-  class="shadow-md rounded-[8px] max-w-[11.875rem] aspect-[190/271] flex flex-col justify-between p-[1rem] pt-[1.5rem] bg-primary-500"
+  class="shadow-md rounded-[8px] min-w-[11.875rem] max-w-[11.875rem] aspect-[190/271] flex flex-col justify-between p-[1rem] pt-[1.5rem] bg-primary-500"
 >
   <a class="relative" href="#/pokemon/{id}/overview">
     <img src="/logo-overlay.png" class="z-[1] opacity-30 absolute" alt="" />
-    <img src={getPokemonImage(id)} class="z-[2] relative" alt={name} />
-    <img
+    <Image
       src={getPokemonImage(id)}
-      class="z-[1] brightness-[.4] opacity-50 grayscale absolute left-[4px] top-[4px]"
-      alt={name}
+      classNames="z-[2] relative"
+      alt="an image of {name}"
+    />
+    <Image
+      src={getPokemonImage(id)}
+      classNames="z-[1] brightness-[.4] opacity-50 grayscale absolute left-[4px] top-[4px]"
+      hideLoading
+      alt="an image of {name} in grayscale"
     />
   </a>
   <div>
