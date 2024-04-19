@@ -70,7 +70,7 @@
         class="relative lg:h-full lg:w-[calc(50%-1rem)] lg:inline-block lg:left-1/2"
       >
         <div
-          class="bdev1 lg:hidden left-0 px-[2rem] max-w-[28.25rem] flex justify-center mx-auto"
+          class="lg:hidden left-0 px-[2rem] max-w-[28.25rem] flex justify-center mx-auto"
         >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>

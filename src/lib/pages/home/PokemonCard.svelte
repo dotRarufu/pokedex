@@ -26,8 +26,8 @@
       alt="an image of {name} in grayscale"
     />
   </a>
-  <div>
+  <a href="#/pokemon/{id}/overview">
     <p class="text-primary-300">#{addPadding(id.toString(), 3, "0")}</p>
     <p class="capitalize text-h6 text-primary-400">{name}</p>
-  </div>
+  </a>
 </li>
