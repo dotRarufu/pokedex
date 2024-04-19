@@ -107,8 +107,6 @@
         0,
       speed: $data.stats.find((s) => s.stat.name === "speed")?.base_stat || 0,
     };
-
-  $: console.log("base stats:", baseStats);
 </script>
 
 <div class="mx-auto max-w-[45ch] lg:mx-0">

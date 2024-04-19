@@ -23,7 +23,10 @@
 </script>
 
 <!-- todo: optimize images -->
-<ul class="lg:px-[5rem] p-[1rem] sm:px-[2rem] flex flex-wrap gap-[1rem]">
+
+<ul
+  class="overflow-y-auto max-w-[48.75rem] lg:px-[5rem] p-[1rem] sm:px-[2rem] flex flex-wrap gap-[1rem]"
+>
   {#each pokemonTypes as type (type)}
     <PokemonType {handleClick} {type} />
   {/each}

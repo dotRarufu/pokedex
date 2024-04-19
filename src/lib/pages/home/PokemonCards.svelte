@@ -1,6 +1,5 @@
 <script lang="ts">
   import InfiniteScroll from "svelte-infinite-scroll";
-  import CardsBackground from "./CardsBackground.svelte";
   import PokemonCard from "./PokemonCard.svelte";
   import { onMount } from "svelte";
 
@@ -12,7 +11,7 @@
   import { getPokemons } from "../../helpers";
 
   // Amount per batch
-  const amount = 3;
+  let amount = 10;
   // Amount to scroll before running loadMore
   const threshold = 20;
 
@@ -53,13 +52,18 @@
   $: types = filter.type || [];
   $: id = filter.nameOrId as number;
 
-  $: console.log("filters:", filter);
+  let container: HTMLUListElement;
+  $: isDesktop = windowWidth > 1023;
+  let windowWidth = 0;
 </script>
 
+<svelte:window bind:innerWidth={windowWidth} />
+
 <ul
-  class="sm:px-[2rem] px-[1rem] md:max-w-[31.75rem] gap-[1rem] justify-center sm:justify-start flex relative lg:pr-[5rem] flex-wrap"
+  bind:this={container}
+  on:scroll={() => console.log("srolls")}
+  class=" sm:px-[2rem] px-[1rem] md:max-w-[31.75rem] lg:max-w-[42.35rem] gap-[1rem] justify-center sm:justify-start flex lg:justify-center relative lg:pr-[5rem] lg:max-h-screen flex-wrap lg:overflow-y-scroll lg:overflow-x-clip"
 >
-  <CardsBackground />
   {#if filterByName}
     <FilterByName
       cachedData={data}
@@ -81,5 +85,14 @@
   {/if}
 
   <!-- elementScroll must overflow -->
-  <InfiniteScroll window {threshold} {hasMore} on:loadMore={getMoreData} />
+  {#if !isDesktop}
+    <InfiniteScroll window {threshold} {hasMore} on:loadMore={getMoreData} />
+  {:else}
+    <InfiniteScroll
+      elementScroll={container}
+      {threshold}
+      {hasMore}
+      on:loadMore={getMoreData}
+    />
+  {/if}
 </ul>

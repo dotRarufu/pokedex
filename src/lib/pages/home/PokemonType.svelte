@@ -21,7 +21,8 @@
 
 <li
   class="rounded-[12px] w-fit px-[1rem] sm:text-h6"
-  style="{!handleClick || isSelected ? `background-color: ${color}` : ''};
+  style="opacity: {!handleClick || isSelected ? '1' : '0.3'};
+  background-color: {color};
   padding-top: {!isSmall ? '0.5rem' : '0.25rem'};
   padding-bottom: {!isSmall ? '0.5rem' : '0.25rem'};"
 >

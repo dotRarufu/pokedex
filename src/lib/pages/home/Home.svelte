@@ -4,6 +4,7 @@
   import type { SearchFilter } from "../../types";
   import PokemonSearch from "./PokemonSearch.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
+  import CardsBackground from "./CardsBackground.svelte";
 
   let filters: SearchFilter = { nameOrId: null, type: null };
   $: {
@@ -23,12 +24,15 @@
 <div class="lg:h-screen lg:w-screen lg:overflow-clip">
   <Header />
 
-  <main class="lg:flex pb-[2rem] justify-between">
-    <div>
+  <main class=" lg:flex pb-[2rem] justify-between">
+    <div class="">
       <PokemonSearch bind:filter={filters.nameOrId} />
       <PokemonTypes bind:filter={filters.type} />
     </div>
 
-    <PokemonCards filter={filters} />
+    <div class="relative h-full pb-[2rem]">
+      <CardsBackground />
+      <PokemonCards filter={filters} />
+    </div>
   </main>
 </div>

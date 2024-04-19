@@ -6,7 +6,7 @@
 
 <li class="">
   <button
-    class="relative py-[0.5rem] rounded-[12px] w-fit px-[1rem] sm:text-h6"
+    class="relative py-[0.5rem] rounded-[12px] w-fit px-[1rem] sm:text-h6 cursor-default"
     style="background-color: {color};"
   >
     <span class="text-background-100 relative z-[2] capitalize">
@@ -19,5 +19,9 @@
     </span>
   </button>
 
-  <p class="text-primary-500 mt-[0.5rem] leading-[1.5]">{description}</p>
+  <p
+    class="text-primary-500 hover:text-text-500 transition-colors mt-[0.5rem] leading-[1.5]"
+  >
+    {description}
+  </p>
 </li>

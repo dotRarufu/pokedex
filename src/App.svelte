@@ -7,6 +7,7 @@
   const routes = {
     "/": Home,
     "/pokemon/:id/*": DetailedPokemon,
+    "/pokemon/*": DetailedPokemon,
     "*": NotFound,
   };
 </script>
