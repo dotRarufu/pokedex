@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Pokemon } from "pokenode-ts";
   import PokemonCard from "./PokemonCard.svelte";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import InfiniteScroll from "svelte-infinite-scroll";
 
-  const amount = 3;
+  const amount = 10;
   const threshold = 80;
   const dispatch = createEventDispatcher();
 

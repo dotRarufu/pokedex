@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Pokemon } from "pokenode-ts";
   import PokemonCard from "./PokemonCard.svelte";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import InfiniteScroll from "svelte-infinite-scroll";
   import type { PokemonTypes } from "../../types";
   import { isArraySubset } from "../../utils";
 
-  const amount = 3;
+  const amount = 10;
   const threshold = 80;
   const dispatch = createEventDispatcher();
 
@@ -51,10 +51,16 @@
     filteredData = [...unique];
 
     // Initial: keep loading data until has amount
-    if (cachedData && filteredData.length < amount) {
+    if (filteredData.length < amount) {
       dispatch("requireMoreData");
     }
   }
+
+  onMount(() => {
+    if (filteredData.length < amount) {
+      dispatch("requireMoreData");
+    }
+  });
 </script>
 
 {#each filteredData as data (data.id)}

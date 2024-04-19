@@ -2,6 +2,9 @@
   import type { Pokemon } from "pokenode-ts";
   import PokemonCard from "./PokemonCard.svelte";
   import pokenode from "../../pokenode";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   export let cachedData: Pokemon[] = [];
   export let idFilter: number;
@@ -12,7 +15,14 @@
     const match = cachedData.find((c) => c.id === idFilter);
 
     if (match) data = match;
-    else data = await pokenode.getPokemonById(idFilter);
+    else {
+      dispatch("fetchStart");
+      try {
+        data = await pokenode.getPokemonById(idFilter);
+      } finally {
+        dispatch("fetchEnd");
+      }
+    }
   };
 
   $: {

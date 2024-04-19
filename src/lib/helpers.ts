@@ -12,7 +12,7 @@ export const addPadding = (text: string, digits: number, placeholder: string) =>
 export const getPokemons = async (page: number, amount: number) => {
   const offset = page * amount;
   const limit = amount;
-  // console.log("getPokemons:", { offset, limit });
+
   const { results, next } = await pokenode.listPokemons(offset, limit);
 
   // Get pokemon profile

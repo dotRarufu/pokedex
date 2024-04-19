@@ -24,6 +24,7 @@ export type PokemonTypes =
   | "fairy";
 
 export type SearchFilter = {
-  nameOrId: string | number | null;
-  type: PokemonTypes[] | null;
+  name: string | null;
+  id: number | null;
+  type: PokemonTypes[];
 };

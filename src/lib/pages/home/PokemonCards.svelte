@@ -16,24 +16,40 @@
   const threshold = 20;
 
   export let filter: SearchFilter;
-
+  let isFetching = false;
   let page = 0;
   let data: Pokemon[] = [];
   let hasMore = true;
 
-  $: hasFilter = filter.nameOrId !== null || filter.type !== null;
-  $: filterByName = hasFilter && typeof filter.nameOrId === "string";
-  $: filterById = hasFilter && typeof filter.nameOrId === "number";
-  $: filterByType = hasFilter && filter.type !== null && filter.type.length > 0;
+  $: hasFilter = filter.id || filter.name || filter.type;
+
+  let selectedFilter: "name" | "id" | "type" | null = null;
+
+  $: {
+    // First match wins
+    if (filter.name) selectedFilter = "name";
+    else if (filter.id && filter.id > 0) selectedFilter = "id";
+    else if (filter.type.length > 0) selectedFilter = "type";
+    else selectedFilter = null;
+  }
+
+  let timeoutId: number;
 
   const getMoreData = async () => {
-    // todo: add indicator while loading for more data
+    isFetching = true;
+    clearTimeout(timeoutId);
+    try {
+      const { pokemons, next } = await getPokemons(page, amount);
 
-    const { pokemons, next } = await getPokemons(page, amount);
-
-    data = [...data, ...pokemons];
-    hasMore = next !== null;
-    page += 1;
+      data = [...data, ...pokemons];
+      hasMore = next !== null;
+      page += 1;
+    } finally {
+      // for smooth turn off
+      timeoutId = setTimeout(() => {
+        isFetching = false;
+      }, 2000);
+    }
   };
 
   onMount(getMoreData);
@@ -48,9 +64,9 @@
   }
 
   // todo: fix type
-  $: name = filter.nameOrId as string;
+  $: name = filter.name as string;
   $: types = filter.type || [];
-  $: id = filter.nameOrId as number;
+  $: id = filter.id as number;
 
   let container: HTMLUListElement;
   $: isDesktop = windowWidth > 1023;
@@ -61,23 +77,35 @@
 
 <ul
   bind:this={container}
-  on:scroll={() => console.log("srolls")}
   class=" sm:px-[2rem] px-[1rem] md:max-w-[31.75rem] lg:max-w-[42.35rem] gap-[1rem] justify-center sm:justify-start flex lg:justify-center relative lg:pr-[5rem] lg:max-h-screen flex-wrap lg:overflow-y-scroll lg:overflow-x-clip"
 >
-  {#if filterByName}
+  {#if isFetching}
+    <div
+      class="fixed block bottom-[1rem] right-[1rem] z-[99999] rounded-[12px] px-[1rem] py-[0.5rem] animate-bounce text-background-200 bg-[#6890f0]"
+    >
+      Loading Data
+    </div>
+  {/if}
+
+  {#if selectedFilter === "name"}
     <FilterByName
       cachedData={data}
       nameFilter={name}
       on:requireMoreData={getMoreData}
     />
-  {:else if filterByType}
+  {:else if selectedFilter === "type"}
     <FilterByType
       cachedData={data}
       typesFilter={types}
       on:requireMoreData={getMoreData}
     />
-  {:else if filterById}
-    <FilterById idFilter={id} cachedData={data} />
+  {:else if selectedFilter === "id"}
+    <FilterById
+      idFilter={id}
+      cachedData={data}
+      on:fetchStart={() => (isFetching = true)}
+      on:fetchEnd={() => (isFetching = false)}
+    />
   {:else}
     {#each uniqueData as datum (datum.id)}
       <PokemonCard data={datum} />

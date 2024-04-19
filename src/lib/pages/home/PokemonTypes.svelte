@@ -3,7 +3,8 @@
   import type { PokemonTypes } from "../../types";
   import PokemonType from "./PokemonType.svelte";
 
-  export let filter: PokemonTypes[] | null;
+  export let updateTypeFilter: (types: PokemonTypes[]) => void;
+  export let filter: PokemonTypes[];
 
   const handleClick = (type: PokemonTypes) => {
     if (filter === null) {
@@ -13,12 +14,12 @@
     }
 
     if (filter.includes(type)) {
-      filter = filter.filter((f) => f !== type);
+      updateTypeFilter(filter.filter((f) => f !== type));
 
       return;
     }
 
-    filter = [...filter, type];
+    updateTypeFilter([...filter, type]);
   };
 </script>
 
@@ -28,6 +29,6 @@
   class="overflow-y-auto max-w-[48.75rem] lg:px-[5rem] p-[1rem] sm:px-[2rem] flex flex-wrap gap-[1rem]"
 >
   {#each pokemonTypes as type (type)}
-    <PokemonType {handleClick} {type} />
+    <PokemonType {handleClick} isSelected={filter.includes(type)} {type} />
   {/each}
 </ul>

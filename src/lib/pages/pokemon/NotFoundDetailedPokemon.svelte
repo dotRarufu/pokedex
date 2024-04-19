@@ -8,6 +8,4 @@
   const data = getContext<Readable<Pokemon | null>>("pokemonData");
 
   $: if ($data) push("/pokemon/" + $data.id + "/overview");
-
-  console.log("not found deftailed");
 </script>

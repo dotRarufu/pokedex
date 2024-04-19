@@ -7,13 +7,13 @@
 
   const color = pokemonTypeColors[type];
 
-  let isSelected = false;
+  export let isSelected = false;
 
   // Maybe use event dispatcher?
   export let handleClick: null | ((type: PokemonTypes) => void) = null;
 
   const buttonClick = () => {
-    isSelected = !isSelected;
+    // isSelected = !isSelected;
 
     handleClick && handleClick(type);
   };
