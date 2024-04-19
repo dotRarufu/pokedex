@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Header from "../Header.svelte";
-  import PokemonCards from "../PokemonCards.svelte";
-  import PokemonSearch from "../PokemonSearch.svelte";
-  import PokemonTypes from "../PokemonTypes.svelte";
-  import type { SearchFilter } from "../types";
+  import Header from "../../Header.svelte";
+  import PokemonCards from "./PokemonCards.svelte";
+  import type { SearchFilter } from "../../types";
+  import PokemonSearch from "./PokemonSearch.svelte";
+  import PokemonTypes from "./PokemonTypes.svelte";
 
   let filters: SearchFilter = { nameOrId: null, type: null };
   $: {

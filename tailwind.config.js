@@ -19,8 +19,10 @@ export default {
         },
       },
       fontSize: {
-        h4: "2.369rem",
-        h6: "1.333rem",
+        h3: "3.157rem", // 50.52px
+        h4: "2.369rem", //37.9 px
+        h5: "1.777rem", // 28.43px
+        h6: "1.333rem", // 21.33px
       },
       fontFamily: {
         sans: [

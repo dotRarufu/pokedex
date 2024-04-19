@@ -22,3 +22,12 @@ export const pokemonTypeColors = {
 };
 
 export const pokemonTypes = Object.keys(pokemonTypeColors) as PokemonTypes[];
+
+export const statColors = {
+  hp: "#cc6666",
+  attack: "#ff9966",
+  defense: "#6699cc",
+  specialAttack: "#ffd966",
+  specialDefense: "#9966cc",
+  speed: "#66cc66",
+};

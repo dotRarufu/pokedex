@@ -24,3 +24,8 @@ export const getPokemons = async (page: number, amount: number) => {
 
   return { pokemons, next };
 };
+
+export const decimeterToFoot = (decimeter: number) =>
+  Math.round(decimeter * 0.33);
+export const hectogramToKilogram = (hectogram: number) =>
+  Math.round(hectogram * 0.1);

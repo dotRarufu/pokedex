@@ -3,24 +3,27 @@
   import type { PokemonTypes } from "../../types";
 
   export let type: PokemonTypes;
+  export let isSmall = false;
 
   const color = pokemonTypeColors[type];
 
   let isSelected = false;
 
   // Maybe use event dispatcher?
-  export let handleClick: (type: PokemonTypes) => void;
+  export let handleClick: null | ((type: PokemonTypes) => void) = null;
 
   const buttonClick = () => {
     isSelected = !isSelected;
 
-    handleClick(type);
+    handleClick && handleClick(type);
   };
 </script>
 
 <li
-  class="border border-text-500 rounded-[12px] w-fit py-[0.5rem] px-[1rem] sm:text-h6"
-  style="{isSelected ? `background-color: ${color}` : ''};"
+  class="rounded-[12px] w-fit px-[1rem] sm:text-h6"
+  style="{!handleClick || isSelected ? `background-color: ${color}` : ''};
+  padding-top: {!isSmall ? '0.5rem' : '0.25rem'};
+  padding-bottom: {!isSmall ? '0.5rem' : '0.25rem'};"
 >
   <button class="relative" on:click={buttonClick}>
     <span class="text-background-100 relative z-[2] capitalize"> {type} </span>
