@@ -111,50 +111,52 @@
   $: console.log("base stats:", baseStats);
 </script>
 
-<p class="text-primary-300">Strong against</p>
-<ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
-  {#each strongAgainst as type, index (index)}
-    <PokemonTypeChip isSmall {type} />
-  {/each}
-</ul>
+<div class="mx-auto max-w-[45ch] lg:mx-0">
+  <p class="text-primary-300">Strong against</p>
+  <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
+    {#each strongAgainst as type, index (index)}
+      <PokemonTypeChip isSmall {type} />
+    {/each}
+  </ul>
 
-<p class="mt-[2rem] text-primary-300">Weak against</p>
-<ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
-  {#each weakAgainst as type, index (index)}
-    <PokemonTypeChip isSmall {type} />
-  {/each}
-</ul>
+  <p class="mt-[2rem] text-primary-300">Weak against</p>
+  <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
+    {#each weakAgainst as type, index (index)}
+      <PokemonTypeChip isSmall {type} />
+    {/each}
+  </ul>
 
-<ul class="mt-[2rem] flex flex-col gap-[1rem]">
-  <StatItem label="HP" hexColor={statColors.hp} value={35} total={255} />
-  <StatItem
-    label="Attack"
-    hexColor={statColors.attack}
-    value={baseStats.attack}
-    total={190}
-  />
-  <StatItem
-    label="Defense"
-    hexColor={statColors.defense}
-    value={baseStats.defense}
-    total={230}
-  />
-  <StatItem
-    label="S.Attack"
-    hexColor={statColors.specialAttack}
-    value={baseStats.sAttack}
-    total={194}
-  />
-  <StatItem
-    label="S.Defense"
-    hexColor={statColors.specialDefense}
-    value={baseStats.sDefense}
-    total={230}
-  />
-  <StatItem
-    label="Speed"
-    hexColor={statColors.speed}
-    value={baseStats.speed}
-    total={180}
-  />
-</ul>
+  <ul class="mt-[2rem] flex flex-col gap-[1rem]">
+    <StatItem label="HP" hexColor={statColors.hp} value={35} total={255} />
+    <StatItem
+      label="Attack"
+      hexColor={statColors.attack}
+      value={baseStats.attack}
+      total={190}
+    />
+    <StatItem
+      label="Defense"
+      hexColor={statColors.defense}
+      value={baseStats.defense}
+      total={230}
+    />
+    <StatItem
+      label="S.Attack"
+      hexColor={statColors.specialAttack}
+      value={baseStats.sAttack}
+      total={194}
+    />
+    <StatItem
+      label="S.Defense"
+      hexColor={statColors.specialDefense}
+      value={baseStats.sDefense}
+      total={230}
+    />
+    <StatItem
+      label="Speed"
+      hexColor={statColors.speed}
+      value={baseStats.speed}
+      total={180}
+    />
+  </ul>
+</div>

@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { getContext, onMount } from "svelte";
+  import { getContext } from "svelte";
   import pokenode from "../../pokenode";
   import type { Readable } from "svelte/store";
   import type { PokemonTypes } from "../../types";
   import type { Pokemon } from "pokenode-ts";
-  import {
-    decimeterToFoot,
-    getPokemonImage,
-    hectogramToKilogram,
-  } from "../../helpers";
+  import { decimeterToFoot, hectogramToKilogram } from "../../helpers";
   import PokemonType from "../home/PokemonType.svelte";
 
   // todo: create getter helper
@@ -35,16 +31,19 @@
   };
 </script>
 
-<ul class="flex gap-[1rem]">
-  {#each pokemonTypes as pokemonType (pokemonType)}
-    <PokemonType isSmall type={pokemonType} />
-  {/each}
-</ul>
+<div class="mx-auto max-w-[45ch] lg:mx-0">
+  <ul class="flex gap-[1rem]">
+    {#each pokemonTypes as pokemonType (pokemonType)}
+      <PokemonType isSmall type={pokemonType} />
+    {/each}
+  </ul>
 
-<p class="mt-[1rem] normal-case leading-[1.5]">{flavorText}</p>
-{#if height && weight}
-  <p class="mt-[1rem] normal-case leading-[1.5]">
-    Stands at roughly {decimeterToFoot(height)} feet tall and weighs approximately
-    {hectogramToKilogram(weight)} kilograms
-  </p>
-{/if}
+  <p class="mt-[1rem] normal-case leading-[1.5]">{flavorText}</p>
+
+  {#if height && weight}
+    <p class="mt-[1rem] normal-case leading-[1.5]">
+      Stands at roughly {decimeterToFoot(height)} feet tall and weighs approximately
+      {hectogramToKilogram(weight)} kilograms
+    </p>
+  {/if}
+</div>

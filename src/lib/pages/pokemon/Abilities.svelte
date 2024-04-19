@@ -39,12 +39,15 @@
   };
 </script>
 
-<ul class="flex flex-col gap-[1.5rem]">
-  {#each movesWithDescription as move (move)}
-    <MoveItem
-      description={move.description}
-      color={move.color}
-      move={move.name}
-    />
-  {/each}
-</ul>
+<div class="mx-auto max-w-[45ch] lg:mx-0">
+  <!-- todo: put in 2 column grid -->
+  <ul class="flex flex-col gap-[1.5rem]">
+    {#each movesWithDescription as move (move)}
+      <MoveItem
+        description={move.description}
+        color={move.color}
+        move={move.name}
+      />
+    {/each}
+  </ul>
+</div>
