@@ -49,9 +49,12 @@
       <PokemonTypes {updateTypeFilter} filter={filters.type} />
     </div>
 
-    <div class="relative h-full pb-[2rem]">
+    <!-- min-w-[42.35rem] -->
+    <div class="relative h-screen lg:-top-[5.625rem]">
+      <!-- <div class=" h-screen top-0 pb-[2rem]"> -->
       <CardsBackground />
       <PokemonCards filter={filters} />
+      <!-- </div> -->
     </div>
   </main>
 </div>

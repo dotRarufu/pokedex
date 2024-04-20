@@ -76,7 +76,7 @@
 
 <ul
   bind:this={container}
-  class="sm:px-[2rem] px-[1rem] lg:max-w-[42.35rem] gap-[1rem] justify-center sm:justify-start flex lg:justify-center relative lg:pr-[5rem] lg:max-h-screen flex-wrap lg:overflow-y-scroll lg:overflow-x-clip h-full"
+  class=" sm:px-[2rem] px-[1rem] gap-[1rem] justify-center relative h-full sm:justify-start flex-wrap flex lg:max-w-[42.35rem] lg:justify-center lg:pr-[5rem] lg:max-h-screen lg:overflow-y-scroll lg:overflow-x-clip lg:py-[2rem]"
 >
   {#if isFetching}
     <LoadingIndicator />
