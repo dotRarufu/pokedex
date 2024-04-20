@@ -31,5 +31,5 @@
 {:else if failed && !hideOnFail}
   <img src="/logo-overlay.png" alt="Not Found" />
 {:else if loading && !hideLoading}
-  <img src="/loading-1.gif" alt="Loading..." />
+  <img src="/loading.gif" alt="Loading..." />
 {/if}
