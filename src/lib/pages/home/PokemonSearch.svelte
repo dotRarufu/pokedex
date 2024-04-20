@@ -20,8 +20,10 @@
   }
 </script>
 
-<div class="p-[1rem] lg:px-[5rem] sm:p-[2rem] lg:bg-transparent bg-primary-500">
-  <h2 class="text-h6 sm:text-h4 md:max-w-[26.25rem] text-text-950">
+<div class="p-[1rem] lg:px-[5rem] sm:p-[2rem] lg:bg-transparent bg-primary-400">
+  <h2
+    class="text-h6 text-background-100 sm:text-h4 md:max-w-[26.25rem] text-text-950 lg:text-text-500"
+  >
     Which Pokémon are you looking for?
   </h2>
   <input

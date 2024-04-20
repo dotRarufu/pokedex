@@ -9,7 +9,7 @@
 
 <a
   href="#/pokemon/{randomNumber}/overview"
-  class="hover:text-text-500 text-primary-400 transition-colors lg:flex items-center gap-[1rem]"
+  class="hover:text-background-100 text-background-200 transition-colors lg:flex items-center gap-[1rem]"
 >
   <Dice classNames="w-[24px]" />
   <span class="hidden lg:block"> Random pokemon </span>

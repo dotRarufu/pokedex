@@ -9,7 +9,7 @@
 
 <!-- todo: colorized background (based on type) on hover -->
 <li
-  class="shadow-md rounded-[8px] min-w-[11.875rem] max-w-[11.875rem] aspect-[190/271] flex flex-col justify-between p-[1rem] pt-[1.5rem] bg-primary-500"
+  class="shadow-md rounded-[8px] w-[11.875rem] h-[16.9375rem] aspect-[190/271] flex flex-col justify-between p-[1rem] pt-[1.5rem] bg-primary-500"
 >
   <a class="relative" href="#/pokemon/{id}/overview">
     <img src="/logo-overlay.png" class="z-[1] opacity-30 absolute" alt="" />

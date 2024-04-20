@@ -7,7 +7,7 @@
 </script>
 
 <nav
-  class="sm:px-[2rem] bg-primary-400 p-[1rem] sm:py-[1rem] pt-[1.5rem] flex items-baseline justify-between"
+  class=" sm:px-[2rem] bg-primary-400 p-[1rem] sm:py-[1rem] flex items-baseline justify-between"
 >
   <a
     href="#/"
