@@ -7,6 +7,7 @@
   // todo: fix name
   import type { PokemonTypes as IPokemonTypes } from "../../types";
   import CardsBackground from "./CardsBackground.svelte";
+  import RandomPokemonButton from "../../RandomPokemonButton.svelte";
 
   // Null is initial value, empty string or 0 is for cleared
   let filters: SearchFilter = {
@@ -39,22 +40,27 @@
   <Header />
 
   <main class="h-[calc(100%-5.625rem)] lg:flex pb-[2rem] justify-between">
-    <div class="">
+    <div class="lg:flex lg:flex-col lg:overflow-y-auto">
       <PokemonSearch
         {updateNameFilter}
         {updateIdFilter}
         name={filters.name}
         id={filters.id}
       />
-      <PokemonTypes {updateTypeFilter} filter={filters.type} />
+      <div class="">
+        <PokemonTypes {updateTypeFilter} filter={filters.type} />
+      </div>
+
+      <ul
+        class="pt-[4rem] justify-end flex-col h-full px-[5rem] hidden lg:flex"
+      >
+        <RandomPokemonButton />
+      </ul>
     </div>
 
-    <!-- min-w-[42.35rem] -->
     <div class="relative h-screen lg:-top-[5.625rem]">
-      <!-- <div class=" h-screen top-0 pb-[2rem]"> -->
       <CardsBackground />
       <PokemonCards filter={filters} />
-      <!-- </div> -->
     </div>
   </main>
 </div>

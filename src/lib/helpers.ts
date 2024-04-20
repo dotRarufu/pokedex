@@ -29,3 +29,16 @@ export const decimeterToFoot = (decimeter: number) =>
   Math.round(decimeter * 0.33);
 export const hectogramToKilogram = (hectogram: number) =>
   Math.round(hectogram * 0.1);
+
+export const getRandomNumberInRange = (min: number, max: number) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const getMaxPokemonId = async () => {
+  const pokemons = await pokenode.listPokemons(99999);
+
+  return pokemons.count;
+};
