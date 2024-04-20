@@ -6,7 +6,7 @@
   import Overview from "./Overview.svelte";
   import Abilities from "./Abilities.svelte";
   import Stats from "./Stats.svelte";
-  import Router, { push } from "svelte-spa-router";
+  import Router, { link, push } from "svelte-spa-router";
   import NotFoundDetailedPokemon from "./NotFoundDetailedPokemon.svelte";
   import { readonly, writable } from "svelte/store";
   import PokemonImage from "../../PokemonImage.svelte";
@@ -16,6 +16,8 @@
   import TabletBackground from "./TabletBackground.svelte";
   import MobileBackground from "./MobileBackground.svelte";
   import DesktopSequenceNav from "./DesktopSequenceNav.svelte";
+  import PageLoader from "../../PageLoader.svelte";
+  import { fade } from "svelte/transition";
 
   export let params: { id: string } = { id: "" };
 
@@ -29,6 +31,11 @@
   const getData = async (id: number) => {
     $data = await pokenode.getPokemonById(id);
   };
+
+  // Bring up loader on $id change
+  $: if ($id) {
+    $data = null;
+  }
 
   const routes = {
     "/overview": Overview,
@@ -45,18 +52,35 @@
   $: isDesktop = windowWidth > 1023;
 
   let windowWidth = 0;
+
+  let initialLoadingDone = false;
+  let isLoading = true;
+
+  const routeLoading = (event: any) => {
+    if (initialLoadingDone) return;
+    isLoading = true;
+  };
+
+  const routeLoaded = (event: any) => {
+    isLoading = false;
+    initialLoadingDone = true;
+  };
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<div
-  class="h-screen flex flex-col overflow-x-clip sm:bg-primary-500 lg:p-[3.25rem] overflow-clip"
->
-  {#if !isDesktop}
-    <TopNav id={$id || 1} />
-  {/if}
+<PageLoader {isLoading} />
 
-  {#if $data}
+{#if $data}
+  <div
+    in:fade={{ duration: 150, delay: 150 }}
+    out:fade={{ duration: 150 }}
+    class="h-screen flex flex-col overflow-x-clip sm:bg-primary-500 bg-background-100 lg:p-[3.25rem] overflow-clip"
+  >
+    {#if !isDesktop}
+      <TopNav id={$id || 1} />
+    {/if}
+
     <main
       class="hover:show-scrollbar hide-scrollbar h-full overflow-y-scroll lg:overflow-visible sm:rounded-[16px] px-[1rem] py-[2rem] sm:mx-auto sm:my-[2rem] lg:mb-0 sm:h-fit sm:max-w-[43.125rem] sm:bg-background-100 sm:p-[3.25rem] lg:w-full lg:max-w-[78.125rem] lg:h-full relative lg:max-h-[42.0625rem] sm:shadow-xl
       "
@@ -67,16 +91,16 @@
       <DesktopSequenceNav id={$data.id} />
 
       <div
-        class="relative lg:h-full lg:w-[calc(50%-1rem)] lg:inline-block lg:left-1/2"
+        class="relative z-[1] lg:h-full lg:w-[calc(50%-1rem)] lg:inline-block lg:left-1/2"
       >
         <div
-          class="lg:hidden left-0 px-[2rem] max-w-[28.25rem] flex justify-center mx-auto"
+          class="lg:hidden aspect-square left-0 px-[2rem] max-w-[28.25rem] flex justify-center mx-auto"
         >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>
 
         <div
-          class="justify-center absolute hidden top-1/2 -translate-y-1/2 lg:flex left-0 w-screen max-w-[120%]"
+          class="justify-center absolute hidden top-1/2 -translate-y-1/2 lg:flex left-0 w-screen max-w-[120%] aspect-square"
         >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>
@@ -85,7 +109,7 @@
       <div
         class="lg:overflow-y-scroll lg:hide-scrollbar lg:inline-block lg:w-[calc(50%-1rem)] relative lg:right-1/2 lg:h-full lg:pr-[2rem]"
       >
-        <a href="/" class="hidden lg:block hover:underline">Back</a>
+        <a href="/" use:link class="hidden lg:block hover:underline">Back</a>
         <h1
           class="lg:text-start lg:text-h3 mb-[1rem] mt-[1rem] capitalize text-center text-h5"
         >
@@ -96,12 +120,19 @@
           <Nav id={$id.toString()} />
         {/if}
 
-        <Router {routes} prefix={/^\/pokemon\/[0-9]+/} />
+        <Router
+          {routes}
+          prefix={/^\/pokemon\/[0-9]+/}
+          on:routeLoading={routeLoading}
+          on:routeLoaded={routeLoaded}
+        />
       </div>
     </main>
-  {/if}
 
-  {#if $id && !isTablet}
-    <Nav id={$id.toString()} />
-  {/if}
-</div>
+    {#if $id && !isTablet}
+      <Nav id={$id.toString()} />
+    {/if}
+  </div>
+{:else}
+  <PageLoader isLoading />
+{/if}

@@ -19,9 +19,7 @@
     </span>
   </button>
 
-  <p
-    class="text-primary-500 hover:text-text-500 transition-colors mt-[0.5rem] leading-[1.5]"
-  >
+  <p class="text-primary-500 transition-colors mt-[0.5rem] leading-[1.5]">
     {description}
   </p>
 </li>

@@ -7,6 +7,7 @@
   import MoveItem from "./MoveItem.svelte";
   import pokenode, { moveClient } from "../../pokenode";
   import type { PokemonTypes } from "../../types";
+  import { fade } from "svelte/transition";
 
   // todo: create getter helper
   const data = getContext<Readable<Pokemon | null>>("pokemonData");
@@ -39,15 +40,40 @@
   };
 </script>
 
-<div class="mx-auto max-w-[45ch] lg:mx-0">
-  <!-- todo: put in 2 column grid -->
-  <ul class="flex flex-col gap-[1.5rem]">
-    {#each movesWithDescription as move (move)}
-      <MoveItem
-        description={move.description}
-        color={move.color}
-        move={move.name}
+{#if movesWithDescription.length > 0}
+  <div class="mx-auto max-w-[45ch] lg:mx-0">
+    <!-- todo: put in 2 column grid -->
+    <ul class="flex flex-col gap-[1.5rem]">
+      {#each movesWithDescription as move (move)}
+        <MoveItem
+          description={move.description}
+          color={move.color}
+          move={move.name}
+        />
+      {/each}
+    </ul>
+  </div>
+{:else}
+  <div
+    class="mx-auto max-w-[45ch] lg:mx-0 flex flex-col gap-[1.5rem] animate-pulse"
+  >
+    <div>
+      <div class="w-[6rem] bg-primary-500 h-[2.5rem] rounded-[12px]" />
+      <div
+        class="mt-[0.75rem] w-[50%] bg-primary-500 h-[1rem] rounded-[12px]"
       />
-    {/each}
-  </ul>
-</div>
+    </div>
+    <div>
+      <div class="w-[8rem] bg-primary-500 h-[2.5rem] rounded-[12px]" />
+      <div
+        class="mt-[0.75rem] w-[80%] bg-primary-500 h-[1rem] rounded-[12px]"
+      />
+    </div>
+    <div>
+      <div class="w-[7rem] bg-primary-500 h-[2.5rem] rounded-[12px]" />
+      <div
+        class="mt-[0.75rem] w-[70%] bg-primary-500 h-[1rem] rounded-[12px]"
+      />
+    </div>
+  </div>
+{/if}

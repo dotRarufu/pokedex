@@ -7,7 +7,7 @@
 </script>
 
 <div class="relative">
-  <Image src={getPokemonImage(id)} classNames="z-[2] relative" alt={name} />
+  <Image src={getPokemonImage(id)} classNames="z-[2] relative " alt={name} />
   <Image
     hideOnFail
     src={getPokemonImage(id)}

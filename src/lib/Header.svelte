@@ -1,4 +1,5 @@
 <script>
+  import { link } from "svelte-spa-router";
   import RandomPokemonButton from "./RandomPokemonButton.svelte";
 
   import DirectionalPad from "./icons/DirectionalPad.svelte";
@@ -12,7 +13,8 @@
   <ul class="flex gap-[1.5rem] lg:hidden">
     <li>
       <a
-        href="#/play"
+        href="/play"
+        use:link
         class="hover:text-background-100 text-background-200 transition-colors"
       >
         <span class="hidden"> Play a game</span>

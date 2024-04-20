@@ -9,6 +9,7 @@
   import type { PokemonTypes } from "../../types";
   import { removeDuplicates } from "../../utils";
   import StatItem from "./StatItem.svelte";
+  import WeakAgainstLoader from "./WeakAgainstLoader.svelte";
 
   // todo: create getter helper
   const data = getContext<Readable<Pokemon | null>>("pokemonData");
@@ -71,14 +72,7 @@
 
   $data?.stats[0].stat.name;
 
-  let baseStats: {
-    attack: number;
-    hp: number;
-    defense: number;
-    sAttack: number;
-    sDefense: number;
-    speed: number;
-  } = {
+  let baseStats = {
     attack: 0,
     defense: 0,
     hp: 0,
@@ -86,12 +80,6 @@
     sDefense: 0,
     speed: 0,
   };
-
-  // $: if ($data)
-  //   baseStats = $data.stats.map((s) => ({
-  //     name: s.stat.name,
-  //     value: s.base_stat,
-  //   }));
 
   $: if ($data)
     baseStats = {
@@ -110,19 +98,23 @@
 </script>
 
 <div class="mx-auto max-w-[45ch] lg:mx-0">
-  <p class="text-primary-300">Strong against</p>
-  <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
-    {#each strongAgainst as type, index (index)}
-      <PokemonTypeChip isSmall {type} />
-    {/each}
-  </ul>
+  {#if strongAgainst.length > 0}
+    <p class="text-primary-300">Strong against</p>
+    <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
+      {#each strongAgainst as type, index (index)}
+        <PokemonTypeChip isSmall {type} />
+      {/each}
+    </ul>
 
-  <p class="mt-[2rem] text-primary-300">Weak against</p>
-  <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
-    {#each weakAgainst as type, index (index)}
-      <PokemonTypeChip isSmall {type} />
-    {/each}
-  </ul>
+    <p class="mt-[2rem] text-primary-300">Weak against</p>
+    <ul class="mt-[0.5rem] flex gap-[0.5rem] flex-wrap">
+      {#each weakAgainst as type, index (index)}
+        <PokemonTypeChip isSmall {type} />
+      {/each}
+    </ul>
+  {:else}
+    <WeakAgainstLoader />
+  {/if}
 
   <ul class="mt-[2rem] flex flex-col gap-[1rem]">
     <StatItem label="HP" hexColor={statColors.hp} value={35} total={255} />

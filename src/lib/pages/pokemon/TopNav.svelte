@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { link } from "svelte-spa-router";
+
   export let id: number;
 
   $: nextId = id + 1;
@@ -10,7 +12,8 @@
   class=" sm:px-[2rem] bg-primary-400 p-[1rem] sm:py-[1rem] flex items-baseline justify-between"
 >
   <a
-    href="#/"
+    use:link
+    href="/"
     class="hover:text-background-200 text-primary-300 transition-colors">Back</a
   >
 
@@ -18,12 +21,14 @@
     class="flex border divide-x divide-primary-300 border-primary-300 rounded-[12px]"
   >
     <a
-      href="#/pokemon/{previousId}/overview"
+      use:link
+      href="/pokemon/{previousId}/overview"
       class="px-[1rem] py-[0.5rem] hover:text-background-200 text-primary-300 transition-colors"
       >Prev</a
     >
     <a
-      href="#/pokemon/{nextId}/overview"
+      use:link
+      href="/pokemon/{nextId}/overview"
       class="hover:text-background-200 text-primary-300 transition-colors px-[1rem] py-[0.5rem]"
       >Next</a
     >

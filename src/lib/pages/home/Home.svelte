@@ -8,6 +8,7 @@
   import type { PokemonTypes as IPokemonTypes } from "../../types";
   import CardsBackground from "./CardsBackground.svelte";
   import RandomPokemonButton from "../../RandomPokemonButton.svelte";
+  import { fade } from "svelte/transition";
 
   // Null is initial value, empty string or 0 is for cleared
   let filters: SearchFilter = {
@@ -36,7 +37,11 @@
   };
 </script>
 
-<div class="lg:h-screen lg:w-screen lg:overflow-clip">
+<div
+  in:fade={{ duration: 150, delay: 150 }}
+  out:fade={{ duration: 150 }}
+  class="bg-background-100 lg:h-screen lg:w-screen lg:overflow-clip"
+>
   <Header />
 
   <main class="h-[calc(100%-5.625rem)] lg:flex pb-[2rem] justify-between">
