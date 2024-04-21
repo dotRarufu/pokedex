@@ -16,7 +16,10 @@
   // Amount to scroll before running loadMore
   const threshold = 20;
 
-  export let sort: "name" | "id" | null = null;
+  export let sort: {
+    property: "name" | "id";
+    direction: "up" | "down";
+  } | null = null;
   export let filter: SearchFilter;
 
   let isFetching = false;
@@ -64,19 +67,21 @@
 
     uniqueData = [...unique];
 
-    if (sort === null || sort === "id") {
-      uniqueData = [...unique];
+    if (sort === null || sort.property === "id") {
+      if (sort?.direction === "up")
+        uniqueData = uniqueData.toSorted((a, b) => b.id - a.id);
+      else uniqueData = uniqueData.toSorted((a, b) => a.id - b.id);
 
       break $;
     }
 
-    if (sort === "name") {
+    if (sort.property === "name") {
       uniqueData = uniqueData.toSorted((a, b) => {
         if (a.name < b.name) {
-          return -1;
+          return sort?.direction === "down" ? 1 : -1;
         }
         if (a.name > b.name) {
-          return 1;
+          return sort?.direction === "down" ? -1 : 1;
         }
         return 0;
       });

@@ -38,7 +38,10 @@
     filters.type = typesFilter;
   };
 
-  let sort: "name" | "id" | null = null;
+  let sort: {
+    property: "name" | "id";
+    direction: "up" | "down";
+  } | null = null;
 </script>
 
 <div

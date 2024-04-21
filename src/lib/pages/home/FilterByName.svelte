@@ -8,7 +8,10 @@
   const threshold = 80;
   const dispatch = createEventDispatcher();
 
-  export let sort: "name" | "id" | null = null;
+  export let sort: {
+    property: "name" | "id";
+    direction: "up" | "down";
+  } | null = null;
   export let cachedData: Pokemon[] = [];
   export let nameFilter: string;
 
@@ -53,20 +56,26 @@
     const unique = new Set<Pokemon>();
     filteredData.forEach((d) => unique.add(d));
 
-    if (sort === null || sort === "id") {
-      filteredData = filteredData.toSorted((a, b) => a.id - b.id);
+    if (sort === null || sort.property === "id") {
+      if (sort?.direction === "up")
+        filteredData = filteredData.toSorted((a, b) => a.id - b.id);
+      else filteredData = filteredData.toSorted((a, b) => b.id - a.id);
+
+      break $;
     }
 
-    if (sort === "name") {
+    if (sort.property === "name") {
       filteredData = filteredData.toSorted((a, b) => {
         if (a.name < b.name) {
-          return -1;
+          return sort?.direction === "down" ? 1 : -1;
         }
         if (a.name > b.name) {
-          return 1;
+          return sort?.direction === "down" ? -1 : 1;
         }
         return 0;
       });
+
+      break $;
     }
   }
 </script>
