@@ -10,6 +10,7 @@
   const threshold = 80;
   const dispatch = createEventDispatcher();
 
+  export let sort: "name" | "id" | null = null;
   export let cachedData: Pokemon[] = [];
   export let typesFilter: PokemonTypes[];
 
@@ -61,6 +62,27 @@
       dispatch("requireMoreData");
     }
   });
+
+  $: {
+    const unique = new Set<Pokemon>();
+    filteredData.forEach((d) => unique.add(d));
+
+    if (sort === null || sort === "id") {
+      filteredData = filteredData.toSorted((a, b) => a.id - b.id);
+    }
+
+    if (sort === "name") {
+      filteredData = filteredData.toSorted((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+  }
 </script>
 
 {#each filteredData as data (data.id)}

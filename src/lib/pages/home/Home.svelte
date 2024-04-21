@@ -10,6 +10,7 @@
   import RandomPokemonButton from "../../RandomPokemonButton.svelte";
   import { fade } from "svelte/transition";
   import PlayButton from "../../PlayButton.svelte";
+  import Sort from "./Sort.svelte";
 
   // Null is initial value, empty string or 0 is for cleared
   let filters: SearchFilter = {
@@ -36,6 +37,10 @@
     filters.name = "";
     filters.type = typesFilter;
   };
+
+  let sort: "name" | "id" | null = null;
+
+  $: console.log("sort", sort);
 </script>
 
 <div
@@ -57,6 +62,8 @@
         <PokemonTypes {updateTypeFilter} filter={filters.type} />
       </div>
 
+      <Sort bind:sorter={sort} />
+
       <ul
         class="pt-[4rem] justify-end flex-col h-full px-[5rem] hidden lg:flex"
       >
@@ -67,7 +74,7 @@
 
     <div class="relative h-screen lg:-top-[5.625rem]">
       <CardsBackground />
-      <PokemonCards filter={filters} />
+      <PokemonCards {sort} filter={filters} />
     </div>
   </main>
 </div>

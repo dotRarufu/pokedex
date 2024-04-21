@@ -16,7 +16,9 @@
   // Amount to scroll before running loadMore
   const threshold = 20;
 
+  export let sort: "name" | "id" | null = null;
   export let filter: SearchFilter;
+
   let isFetching = false;
   let page = 0;
   let data: Pokemon[] = [];
@@ -54,12 +56,33 @@
   onMount(getMoreData);
 
   let uniqueData: Pokemon[] = [];
+
   $: {
     // Unsure why raw data causes key duplicate
     const unique = new Set<Pokemon>();
     data.forEach((d) => unique.add(d));
 
     uniqueData = [...unique];
+
+    if (sort === null || sort === "id") {
+      uniqueData = [...unique];
+
+      break $;
+    }
+
+    if (sort === "name") {
+      uniqueData = uniqueData.toSorted((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+
+      break $;
+    }
   }
 
   // todo: fix type
@@ -84,12 +107,14 @@
 
   {#if selectedFilter === "name"}
     <FilterByName
+      {sort}
       cachedData={data}
       nameFilter={name}
       on:requireMoreData={getMoreData}
     />
   {:else if selectedFilter === "type"}
     <FilterByType
+      {sort}
       cachedData={data}
       typesFilter={types}
       on:requireMoreData={getMoreData}

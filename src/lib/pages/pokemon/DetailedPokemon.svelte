@@ -27,6 +27,9 @@
   $: $id = Number(params.id);
   $: if ($id) getData($id);
 
+  // Only 3 digits
+  $: if ($id && $id > 999) push("/");
+
   // or get data from cache
   const getData = async (id: number) => {
     $data = await pokenode.getPokemonById(id);
