@@ -12,7 +12,7 @@ This is a technical assessment for Kreios Labs with the following constraints:
 
 ## APIs used
 
-- [pokeapi](https://pokeapi.co/https:/) (through [pokenode-ts](https://www.npmjs.com/package/pokenode-tshttps:/)) (for built-in caching)
+- [pokeapi](https://pokeapi.co/https:/) (through [pokenode-ts](https://www.npmjs.com/package/pokenode-tshttps:/)) (for built-in caching and types)
 - [HybridShivam's Pokemon Assets](https://github.com/HybridShivam/Pokemon) (for higher quality images)
 
 ## Tech Stack
@@ -25,11 +25,24 @@ This is a technical assessment for Kreios Labs with the following constraints:
 ## Setup
 
 ```ts
+// Clone this repository
 git clone https://github.com/dotrarufu/pokedex
 
-npm i
+// Install dependencies
+npm install
 
+// Run
 npm run dev
 ```
+
+## Build
+
+Files will be at `/dist`
+
+```ts
+npm run build
+```
+
+---
 
 [UI drafts](https://design.penpot.app/#/view/660d9edb-b970-801b-8004-33cee3174cb9?page-id=660d9edb-b970-801b-8004-33cee3174cba§ion=interactions&index=0&share-id=b4ce4fde-fc7c-81a2-8004-355e192ac721)
