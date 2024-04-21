@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { link } from "svelte-spa-router";
+  import { link, push } from "svelte-spa-router";
 
   export let id: number;
 
@@ -9,7 +9,7 @@
 </script>
 
 <nav
-  class=" sm:px-[2rem] bg-primary-400 p-[1rem] sm:py-[1rem] flex items-baseline justify-between"
+  class="sm:px-[2rem] bg-primary-400 p-[1rem] sm:py-[1rem] flex items-baseline justify-between"
 >
   <a
     use:link
@@ -26,6 +26,7 @@
       class="px-[1rem] py-[0.5rem] hover:text-background-200 text-primary-300 transition-colors"
       >Prev</a
     >
+
     <a
       use:link
       href="/pokemon/{nextId}/overview"

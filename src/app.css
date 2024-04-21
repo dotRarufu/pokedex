@@ -36,7 +36,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: theme(colors.primary.300);
+    background-color: theme(colors.primary.200);
     border-radius: 20px;
     border: 6px solid transparent;
     background-clip: content-box;

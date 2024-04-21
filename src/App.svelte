@@ -28,6 +28,6 @@
 <PageLoader {isLoading} />
 
 <!-- background color, for transition -->
-<div class="w-screen h-screen bg-primary-400 absolute left-0 top-0 -z-[1]" />
+<!-- <div class="w-screen h-screen bg-primary-400 absolute left-0 top-0 -z-[1]" /> -->
 
 <Router {routes} on:routeLoading={routeLoading} on:routeLoaded={routeLoaded} />

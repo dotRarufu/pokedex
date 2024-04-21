@@ -26,7 +26,6 @@
   let maxId = 0;
   let isErrorEmitted = false;
 
-  $: console.log("data id", $data?.id);
   // todo: add loader
   const initialize = async () => {
     try {
@@ -52,7 +51,6 @@
     } catch {
       // retry
 
-      console.log("initialize errs");
       clear();
       initialize();
     }
@@ -133,9 +131,9 @@
           }}
           id={$data.id}
           name=""
-          classNames=" px-[1rem] py-[1rem] max-w-[22.875rem] transition-all {!isColorized
+          classNames="px-[1rem] py-[1rem] max-w-[22.875rem] transition-all {!isColorized
             ? 'brightness-0'
-            : 'brightness-100'}"
+            : ''}"
         />
       </div>
 

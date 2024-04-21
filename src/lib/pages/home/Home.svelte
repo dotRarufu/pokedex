@@ -39,8 +39,6 @@
   };
 
   let sort: "name" | "id" | null = null;
-
-  $: console.log("sort", sort);
 </script>
 
 <div
@@ -51,7 +49,7 @@
   <Header />
 
   <main class="h-[calc(100%-5.625rem)] lg:flex pb-[2rem] justify-between">
-    <div class="lg:flex lg:flex-col lg:overflow-y-auto">
+    <div class="lg:flex lg:flex-col lg:overflow-y-auto z-[1]">
       <PokemonSearch
         {updateNameFilter}
         {updateIdFilter}

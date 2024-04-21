@@ -13,7 +13,7 @@
   />
   <button
     on:click
-    class=" bdev1 bg-primary-500 w-fit px-[1rem] py-[0.75rem] hover:text-text-500 text-primary-300 transition-colors hover:bg-background-200"
+    class=" bg-primary-500 w-fit px-[1rem] py-[0.75rem] hover:text-text-500 text-primary-300 transition-colors hover:bg-background-200"
     >Guess</button
   >
 </div>

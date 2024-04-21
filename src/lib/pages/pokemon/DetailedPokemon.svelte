@@ -79,10 +79,10 @@
   <div
     in:fade={{ duration: 150, delay: 150 }}
     out:fade={{ duration: 150 }}
-    class="h-screen flex flex-col overflow-x-clip sm:bg-primary-500 bg-background-100 lg:p-[3.25rem] overflow-clip"
+    class="h-screen flex flex-col overflow-clip sm:bg-primary-500 bg-background-100 lg:p-[3.25rem]"
   >
     {#if !isDesktop}
-      <TopNav id={$id || 1} />
+      <TopNav id={$data.id || 1} />
     {/if}
 
     <main
@@ -104,7 +104,7 @@
         </div>
 
         <div
-          class="justify-center absolute hidden top-1/2 -translate-y-1/2 lg:flex left-0 w-screen max-w-[120%] aspect-square"
+          class="justify-center absolute hidden top-1/2 -translate-y-1/2 lg:flex left-0 w-screen max-w-[120%] aspect-square items-center"
         >
           <PokemonImage id={$data.id} name={$data.name} />
         </div>
@@ -113,10 +113,15 @@
       <div
         class="lg:overflow-y-scroll lg:hide-scrollbar lg:inline-block lg:w-[calc(50%-1rem)] relative lg:right-1/2 lg:h-full lg:pr-[2rem]"
       >
-        <a href="/" use:link class="hidden lg:block hover:underline">Back</a>
+        <a
+          href="/"
+          use:link
+          class="hidden text-primary-500 lg:block hover:underline hover:text-text-500 transition-colors"
+          >Back</a
+        >
 
         <div
-          class="sm:flex sm:flex-col sm:items-center mx-auto max-w-[45ch] lg:block lg:mx-0 my-[1.5rem]"
+          class="sm:flex sm:flex-col sm:items-center mx-auto max-w-[45ch] lg:items-start lg:mx-0 lg:mb-0 my-[1.5rem] lg:flex-col-reverse"
         >
           <p class="text-primary-300">
             #{addPadding($data.id + "", 3, "0")}

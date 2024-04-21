@@ -7,18 +7,21 @@
   export let classNames: string = "";
 </script>
 
-<div class="relative">
-  <Image
-    on:failed
-    src={getPokemonImage(id)}
-    classNames="z-[2] relative {classNames}"
-    alt={name}
-  />
-  <Image
-    hideOnFail
-    src={getPokemonImage(id)}
-    classNames="z-[1] brightness-0 opacity-50 absolute left-[4px] top-[4px] {classNames}"
-    alt={name}
-    hideLoading
-  />
-</div>
+{#key id}
+  <div class="relative">
+    <Image
+      on:failed
+      src={getPokemonImage(id)}
+      classNames="z-[2] relative {classNames}"
+      alt={name}
+      loaderHasOutTransition={false}
+    />
+    <Image
+      hideOnFail
+      hideLoading
+      src={getPokemonImage(id)}
+      classNames="z-[1] brightness-0 opacity-50 absolute left-[4px] top-[4px] {classNames}"
+      alt={name}
+    />
+  </div>
+{/key}

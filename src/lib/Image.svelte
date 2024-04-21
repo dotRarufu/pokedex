@@ -7,6 +7,7 @@
   export let hideLoading = false;
   export let hideOnFail = false;
   export let loaderClassNames: string = "";
+  export let loaderHasOutTransition = true;
 
   const dispatch = createEventDispatcher();
 
@@ -42,7 +43,7 @@
       dispatch("failed");
 
       if (isErrorEmitted) return;
-      console.log("image fails");
+
       isErrorEmitted = true;
     };
   };
@@ -68,9 +69,9 @@
 {:else if loading && !hideLoading}
   <img
     in:fade={{ duration: 150, delay: 150 }}
-    out:fade={{ duration: 150 }}
+    out:fade={{ duration: loaderHasOutTransition ? 150 : 0 }}
     src="/loading.gif"
     class={loaderClassNames}
-    alt="Loading..."
+    alt="Loading"
   />
 {/if}
