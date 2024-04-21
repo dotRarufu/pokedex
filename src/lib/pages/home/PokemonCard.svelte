@@ -23,7 +23,7 @@
     <Image
       hideOnFail
       src={getPokemonImage(id)}
-      classNames="z-[1] brightness-[.4] opacity-50 grayscale absolute left-[4px] top-[4px]"
+      classNames="z-[1] brightness-0 opacity-50 absolute left-[4px] top-[4px]"
       hideLoading
       alt="an image of {name} in grayscale"
     />

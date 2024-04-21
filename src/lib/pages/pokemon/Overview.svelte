@@ -4,7 +4,11 @@
   import type { Readable } from "svelte/store";
   import type { PokemonTypes } from "../../types";
   import type { Pokemon } from "pokenode-ts";
-  import { decimeterToFoot, hectogramToKilogram } from "../../helpers";
+  import {
+    cleanText,
+    decimeterToFoot,
+    hectogramToKilogram,
+  } from "../../helpers";
   import PokemonType from "../home/PokemonType.svelte";
   import OverviewLoader from "./OverviewLoader.svelte";
 
@@ -37,7 +41,9 @@
     height = data.height;
     weight = data.weight;
 
-    flavorText = english;
+    const cleaned = cleanText(english);
+
+    flavorText = cleaned;
 
     pokemonTypes = data.types.map((t) => t.type.name as PokemonTypes);
   };

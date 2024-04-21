@@ -8,6 +8,7 @@
   import pokenode, { moveClient } from "../../pokenode";
   import type { PokemonTypes } from "../../types";
   import { fade } from "svelte/transition";
+  import { cleanText } from "../../helpers";
 
   // todo: create getter helper
   const data = getContext<Readable<Pokemon | null>>("pokemonData");
@@ -29,9 +30,11 @@
 
       const english = match.length > 0 ? match[0].flavor_text : "???";
 
+      const cleaned = cleanText(english);
+
       const color = pokemonTypeColors[res.type.name as PokemonTypes];
 
-      return { name: res.name, description: english, color };
+      return { name: res.name, description: cleaned, color };
     });
 
     const resolved = await Promise.all(reqs);

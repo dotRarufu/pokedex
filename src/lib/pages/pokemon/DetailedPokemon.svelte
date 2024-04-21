@@ -18,6 +18,7 @@
   import DesktopSequenceNav from "./DesktopSequenceNav.svelte";
   import PageLoader from "../../PageLoader.svelte";
   import { fade } from "svelte/transition";
+  import { addPadding } from "../../helpers";
 
   export let params: { id: string } = { id: "" };
 
@@ -113,11 +114,19 @@
         class="lg:overflow-y-scroll lg:hide-scrollbar lg:inline-block lg:w-[calc(50%-1rem)] relative lg:right-1/2 lg:h-full lg:pr-[2rem]"
       >
         <a href="/" use:link class="hidden lg:block hover:underline">Back</a>
-        <h1
-          class="lg:text-start lg:text-h3 mb-[1rem] mt-[1rem] capitalize text-center text-h5"
+
+        <div
+          class="sm:flex sm:flex-col sm:items-center mx-auto max-w-[45ch] lg:block lg:mx-0 my-[1.5rem]"
         >
-          {$data.name}
-        </h1>
+          <p class="text-primary-300">
+            #{addPadding($data.id + "", 3, "0")}
+          </p>
+          <h1
+            class=" w-fit lg:text-start lg:text-h3 capitalize text-center text-h5"
+          >
+            {$data.name}
+          </h1>
+        </div>
 
         {#if $id && isTablet}
           <Nav id={$id.toString()} />
