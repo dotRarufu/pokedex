@@ -14,10 +14,10 @@
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import Input from "./Input.svelte";
+  import { fade } from "svelte/transition";
+  import PageLoader from "../../PageLoader.svelte";
 
-  // todo: make data reactive
   let data = writable<Pokemon | null>(null);
-
   let flavorText = "";
   let isColorized = false;
   let multiplier: 2 | 1 = 2;
@@ -88,6 +88,8 @@
     multiplier = 2;
     isColorized = false;
     inputValue = "";
+    $data = null;
+    flavorText = "";
 
     isErrorEmitted = false;
 
@@ -112,6 +114,8 @@
 
 {#if $data && flavorText}
   <main
+    in:fade={{ duration: 150, delay: 150 }}
+    out:fade={{ duration: 150 }}
     class="overflow-clip shadow-lg sm:w-[26.875rem] mx-auto sm:rounded-[16px] sm:max-h-[53.75rem] sm:absolute sm:top-1/2 sm:-translate-y-1/2 sm:left-1/2 sm:-translate-x-1/2 bg-background-100 h-[calc(100vh-3.5rem)] flex flex-col"
   >
     {#if isMd}
@@ -121,7 +125,7 @@
     <div
       class="overflow-y-auto overflow-x-clip h-full py-[1.75rem] px-[1rem] flex flex-col gap-[1.75rem] sm:p-[2rem]"
     >
-      <div class="w-fit mx-auto">
+      <div class="w-fit mx-auto aspect-square grid place-content-center">
         <PokemonImage
           on:failed={() => {
             if (isErrorEmitted) return;
@@ -148,9 +152,11 @@
         on:click={handleHintClick}
         class="mb-[1rem] text-primary-300 hover:underline hover:text-text-500"
       >
-        I need more hint
+        Show me the image
       </button>
       <Input on:click={handleGuessClick} bind:value={inputValue} />
     </div>
   </main>
+{:else}
+  <PageLoader isLoading />
 {/if}

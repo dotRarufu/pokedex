@@ -1,8 +1,6 @@
 <script>
-  import { link } from "svelte-spa-router";
   import RandomPokemonButton from "./RandomPokemonButton.svelte";
 
-  import DirectionalPad from "./icons/DirectionalPad.svelte";
   import PlayButton from "./PlayButton.svelte";
 </script>
 

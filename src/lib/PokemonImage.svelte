@@ -5,6 +5,7 @@
   export let id: number;
   export let name: string;
   export let classNames: string = "";
+  export let loaderClassNames: string = "";
 </script>
 
 {#key id}
@@ -15,6 +16,7 @@
       classNames="z-[2] relative {classNames}"
       alt={name}
       loaderHasOutTransition={false}
+      {loaderClassNames}
     />
     <Image
       hideOnFail
