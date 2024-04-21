@@ -9,6 +9,7 @@
   import CardsBackground from "./CardsBackground.svelte";
   import RandomPokemonButton from "../../RandomPokemonButton.svelte";
   import { fade } from "svelte/transition";
+  import PlayButton from "../../PlayButton.svelte";
 
   // Null is initial value, empty string or 0 is for cleared
   let filters: SearchFilter = {
@@ -59,6 +60,7 @@
       <ul
         class="pt-[4rem] justify-end flex-col h-full px-[5rem] hidden lg:flex"
       >
+        <PlayButton />
         <RandomPokemonButton />
       </ul>
     </div>

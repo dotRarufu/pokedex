@@ -28,3 +28,7 @@ export type SearchFilter = {
   id: number | null;
   type: PokemonTypes[];
 };
+
+export type LocalStorageItem = {
+  score: number;
+};

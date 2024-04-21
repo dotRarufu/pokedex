@@ -3,6 +3,7 @@
   import RandomPokemonButton from "./RandomPokemonButton.svelte";
 
   import DirectionalPad from "./icons/DirectionalPad.svelte";
+  import PlayButton from "./PlayButton.svelte";
 </script>
 
 <header
@@ -12,15 +13,7 @@
 
   <ul class="flex gap-[1.5rem] lg:hidden">
     <li>
-      <a
-        href="/play"
-        use:link
-        class="hover:text-background-100 text-background-200 transition-colors"
-      >
-        <span class="hidden"> Play a game</span>
-
-        <DirectionalPad classNames="w-[24px]" />
-      </a>
+      <PlayButton />
     </li>
     <li>
       <RandomPokemonButton />

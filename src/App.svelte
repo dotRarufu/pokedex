@@ -4,6 +4,7 @@
   import DetailedPokemon from "./lib/pages/pokemon/DetailedPokemon.svelte";
   import NotFound from "./lib/pages/NotFound.svelte";
   import PageLoader from "./lib/PageLoader.svelte";
+  import Quiz from "./lib/pages/quiz/Quiz.svelte";
 
   let isLoading = true;
 
@@ -19,6 +20,7 @@
     "/": Home,
     "/pokemon/:id/*": DetailedPokemon,
     "/pokemon/*": DetailedPokemon,
+    "/quiz": Quiz,
     "*": NotFound,
   };
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import { fade } from "svelte/transition";
   export let src: string;
   export let alt: string;
@@ -8,9 +8,12 @@
   export let hideOnFail = false;
   export let loaderClassNames: string = "";
 
+  const dispatch = createEventDispatcher();
+
   let loaded = false;
   let failed = false;
   let loading = false;
+  let isErrorEmitted = false;
 
   $: if (src) {
     reset();
@@ -27,6 +30,7 @@
     const img = new Image();
     img.src = src;
     loading = true;
+    isErrorEmitted = false;
 
     img.onload = () => {
       loading = false;
@@ -35,6 +39,11 @@
     img.onerror = () => {
       loading = false;
       failed = true;
+      dispatch("failed");
+
+      if (isErrorEmitted) return;
+      console.log("image fails");
+      isErrorEmitted = true;
     };
   };
 
