@@ -10,6 +10,8 @@ This is a technical assessment for Kreios Labs with the following constraints:
 - Only Tailwind for styling
 - Must only use PokeApi
 
+(i failed)
+
 ## APIs used
 
 - [pokeapi](https://pokeapi.co/https:/) (through [pokenode-ts](https://www.npmjs.com/package/pokenode-tshttps:/)) (for built-in caching and types)
@@ -20,7 +22,7 @@ This is a technical assessment for Kreios Labs with the following constraints:
 - Svelte
   - svelte-spa-router
 - Tailwind
-- Penpot (just a try)
+- Penpot
 
 ## Setup
 
